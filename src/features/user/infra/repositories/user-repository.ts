@@ -42,7 +42,7 @@ export class UserRepository {
         });
     }
 
-    async find(username: string) {
+    async find(username: string): Promise<IUser | undefined> {
         return await this.repository.findOne(username);
     }
 }
