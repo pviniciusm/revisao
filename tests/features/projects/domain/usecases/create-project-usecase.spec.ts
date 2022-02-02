@@ -6,7 +6,7 @@ import { CreateProjectUseCase } from "../../../../../src/features/projects/domai
 import { ProjectRepository } from "../../../../../src/features/projects/infra/repositories/project-repository";
 import { UserRepository } from "../../../../../src/features/user/infra/repositories/user-repository";
 
-describe.skip("create project usecase tests", () => {
+describe("create project usecase tests", () => {
     const makeSut = () => {
         const projectRepo = new ProjectRepository();
         const userRepo = new UserRepository();
