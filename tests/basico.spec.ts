@@ -15,6 +15,7 @@
 
 test("test if 2 + 2 == 4", () => {
     const result = 2 + 2;
+
     expect(result).toEqual(4);
 });
 
@@ -34,7 +35,7 @@ test("test if 2 + 2 == 4", () => {
 // });
 
 // test("test if MyUseCase run throws an Error without try catch", () => {
-//     expect.assertions(1);
+//     //expect.assertions(1);
 //     expect(MyUseCase.run).toThrow(Error);
 // });
 
@@ -51,7 +52,7 @@ test("test if 2 + 2 == 4", () => {
 // });
 
 // test("test if execute throws Error if params === 3", async () => {
-//     expect(MyUseCase.execute(3)).rejects.toThrow(Error);
+//     expect(MyUseCase.execute(3)).rejects;
 // });
 
 // test("test if execute does not throws Error if params !== 3", async () => {

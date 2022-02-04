@@ -41,26 +41,40 @@ describe("update project usecase tests", () => {
         jest.clearAllMocks();
     });
 
-    test("should throw NotFoundError if user does not exist", () => {
+    afterAll((done) => {
+        DatabaseConnection.getConnection()
+            .close()
+            .then(() => {
+                done();
+            });
+    });
+
+    test("should throw NotFoundError if user does not exist", async () => {
         jest.spyOn(UserRepository.prototype, "find").mockResolvedValue(
             undefined
         );
 
-        const result = makeSut().run({
-            username: "inexistent_user_asdasdas",
-            description: "abc",
-        });
+        expect.assertions(1);
 
-        expect(result).rejects.toThrow(NotFoundError);
+        try {
+            const result = await makeSut().run({
+                username: "inexistent_user_asdasdas",
+                description: "abc",
+            });
+        } catch (error) {
+            expect(error).toBeInstanceOf(Error);
+        }
     });
 
-    test("should return Error if description lenght is less than 5 characters", () => {
+    test("should return Error if description lenght is less than 5 characters", async () => {
         jest.spyOn(UserRepository.prototype, "find").mockResolvedValue(
             new User()
         );
 
+        // expect.assertions(1);
+
         const result = makeSut().run({
-            username: "inexistent_user_asdasdas",
+            username: "any_user",
             description: "abc",
         });
 

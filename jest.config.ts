@@ -5,22 +5,29 @@
 
 export default {
     // Automatically clear mock calls, instances and results before every test
-    clearMocks: false,
+    clearMocks: true,
 
     // Indicates whether the coverage information should be collected while executing the test
     collectCoverage: false,
 
-    // An array of glob patterns indicating a set of files for which coverage information should be collected
-    collectCoverageFrom: ["<rootDir>/src/**/*.ts"],
+    // arquivos que vão entrar no coverage
+    collectCoverageFrom: [
+        "<rootDir>/src/**/*.ts",
+        "!**/node_modules/**",
+        "!**/migrations/**",
+    ],
 
-    // The directory where Jest should output its coverage files
+    // pasta aonde vai ser colocado os arquivos do coverage
     coverageDirectory: "coverage",
 
-    // An array of regexp pattern strings used to skip coverage collection
-    coveragePathIgnorePatterns: ["\\\\node_modules\\\\", "\\\\migrations\\\\"],
+    // pastas que vão ser ignoradas no coverage
+    // coveragePathIgnorePatterns: [
+    //     "\\\\node_modules\\\\",
+    //     "<rootDir>/src/core/infra/database/migrations",
+    // ], // é ignorado as migrations no coverage
 
     // Indicates which provider should be used to instrument code for coverage
-    coverageProvider: "v8",
+    // coverageProvider: "v8",
 
     // A list of paths to directories that Jest should use to search for files in
     roots: ["<rootDir>/tests"],

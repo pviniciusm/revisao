@@ -22,6 +22,7 @@ export class CreateProjectUseCase implements UseCase {
 
     async run(project: CreateProjectParams) {
         const user = await this.userRepository.find(project.username);
+
         if (!user) {
             throw new NotFoundError("user");
         }
@@ -40,9 +41,6 @@ export class CreateProjectUseCase implements UseCase {
             toCreateProject
         );
 
-        await this.cacheRepository.sadd(
-            "projectsSet",
-            `project:${created.uid}`
-        );
+        return created;
     }
 }
