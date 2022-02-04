@@ -2,6 +2,7 @@ import { create } from "domain";
 import { UseCase } from "../../../../core/domain/contracts/usecase";
 import { NotFoundError } from "../../../../core/domain/errors/not-found-error";
 import { CacheRepository } from "../../../../core/infra/repositories/cache-repository";
+import { IUser } from "../../../user/domain/model/user";
 import { UserRepository } from "../../../user/infra/repositories/user-repository";
 import { ProjectRepository } from "../../infra/repositories/project-repository";
 
@@ -13,10 +14,15 @@ export interface CreateProjectParams {
     endDate?: Date;
 }
 
+export interface IUserRepository {
+    find(username: string): Promise<IUser | undefined>;
+    create(user: IUser): Promise<void>;
+}
+
 export class CreateProjectUseCase implements UseCase {
     constructor(
         private repository: ProjectRepository,
-        private userRepository: UserRepository,
+        private userRepository: IUserRepository,
         private cacheRepository: CacheRepository
     ) {}
 
