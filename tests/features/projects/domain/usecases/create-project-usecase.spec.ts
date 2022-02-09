@@ -30,6 +30,10 @@ describe("Create Project UseCase tests", () => {
     beforeAll(async () => {
         await DatabaseConnection.initConnection();
         RedisConnection.initConnection();
+
+        jest.spyOn(UserRepository.prototype, "find").mockResolvedValue(
+            undefined
+        );
     });
 
     afterAll(async () => {
@@ -63,5 +67,33 @@ describe("Create Project UseCase tests", () => {
             expect(err.name).toEqual("NotFoundError");
             expect(err.message).toEqual("user not found.");
         }
+    });
+
+    test("deveria retornar ok se o projeto for criado", async () => {
+        const sut = makeSut();
+
+        const user = {
+            cpf: "123",
+            nome: "teste",
+            username: "teste",
+        };
+
+        jest.spyOn(UserRepository.prototype, "find").mockResolvedValue(user);
+
+        const project = {
+            username: user.username,
+            description: "any_description",
+            name: "any_name",
+        };
+
+        const result = await sut.run(project);
+
+        expect(result).toBeTruthy();
+        expect(result.description).toEqual(project.description);
+        expect(result.name).toEqual(project.name);
+        expect(result.endDate).toBeFalsy();
+
+        expect(result.user).toBeTruthy();
+        expect(result.user.username).toEqual(user.username);
     });
 });

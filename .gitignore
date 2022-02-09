@@ -3,4 +3,4 @@ dist/
 .env
 coverage
 **_cola_**
-dbtest.sqlite
+**.sqlite
