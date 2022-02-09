@@ -13,20 +13,6 @@ import { ProjectRepository } from "../../../../../src/features/projects/infra/re
 import { IUser } from "../../../../../src/features/user/domain/model/user";
 import { UserRepository } from "../../../../../src/features/user/infra/repositories/user-repository";
 
-// class MockUserRepository implements IUserRepository {
-//     find(username: string) {
-//         if (username === undefined) {
-//             return undefined;
-//         }
-
-//         if (username === "teste_mock_erro") {
-//             throw new Error();
-//         }
-//     }
-
-//     async create(_: IUser) {}
-// }
-
 describe("Create Project UseCase tests", () => {
     jest.mock(
         "../../../../../src/features/user/infra/repositories/user-repository"
@@ -46,18 +32,23 @@ describe("Create Project UseCase tests", () => {
         RedisConnection.initConnection();
     });
 
+    afterAll(async () => {
+        await DatabaseConnection.closeConnection();
+        await RedisConnection.closeConnection();
+    });
+
     beforeEach(() => {
         jest.clearAllMocks();
     });
 
     test("deveria gerar NotFoundError se o usuario não existe", async () => {
-        const spyTest = jest
-            .spyOn(UserRepository.prototype, "find")
-            .mockResolvedValue(undefined);
+        jest.spyOn(UserRepository.prototype, "find").mockResolvedValue(
+            undefined
+        );
 
         const sut = makeSut();
 
-        expect.assertions(4);
+        expect.assertions(3);
 
         try {
             await sut.run({
@@ -67,8 +58,6 @@ describe("Create Project UseCase tests", () => {
             });
         } catch (error) {
             expect(error).toBeInstanceOf(NotFoundError);
-
-            expect(spyTest).toHaveBeenCalledWith("teste");
 
             const err = error as NotFoundError;
             expect(err.name).toEqual("NotFoundError");

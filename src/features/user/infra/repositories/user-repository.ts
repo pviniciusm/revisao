@@ -46,4 +46,8 @@ export class UserRepository implements IUserRepository {
     async find(username: string): Promise<IUser | undefined> {
         return await this.repository.findOne(username);
     }
+
+    async clear() {
+        await this.repository.clear();
+    }
 }

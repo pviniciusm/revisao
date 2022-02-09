@@ -46,4 +46,8 @@ export class ProjectRepository {
             relations: ["user"],
         });
     }
+
+    async clear() {
+        await this.repository.clear();
+    }
 }
