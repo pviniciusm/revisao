@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Controller } from "../../../../core/presentation/contracts/controller";
+import { MissingFieldError } from "../../../../core/presentation/errors/missing-field-error";
 import {
     ok,
     serverError,
@@ -14,7 +15,9 @@ export class CreateProjectController implements Controller {
             const { username, name, description, startDate, endDate } =
                 req.body;
 
-            // ....
+            if (!username) {
+                throw new MissingFieldError("username");
+            }
 
             await this.createProjectUseCase.run({
                 username,

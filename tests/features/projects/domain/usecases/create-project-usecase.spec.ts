@@ -30,10 +30,6 @@ describe("Create Project UseCase tests", () => {
     beforeAll(async () => {
         await DatabaseConnection.initConnection();
         RedisConnection.initConnection();
-
-        jest.spyOn(UserRepository.prototype, "find").mockResolvedValue(
-            undefined
-        );
     });
 
     afterAll(async () => {
