@@ -52,7 +52,7 @@ export class ProjectRouter {
         const findProjectByIdController = new FindProjectByIdController(
             findProjectByIdUseCase
         );
-        routes.get("/:id", (req: Request, res: Response) =>
+        routes.get("/find", (req: Request, res: Response) =>
             findProjectByIdController.execute(req, res)
         );
 

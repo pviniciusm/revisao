@@ -6,19 +6,12 @@ import { ProjectRepository } from "../../../../../src/features/projects/infra/re
 import { UserRepository } from "../../../../../src/features/user/infra/repositories/user-repository";
 import { makeUsers } from "../../../../helpers/make-users";
 
-describe("Create project controller tests", () => {
+describe.skip("Create project controller tests", () => {
     let app: Express.Application | undefined = undefined;
 
     beforeAll(async () => {
         await DatabaseConnection.initConnection();
         RedisConnection.initConnection();
-
-        app = createServer();
-    });
-
-    beforeEach(async () => {
-        await new ProjectRepository().clear();
-        await new UserRepository().clear();
     });
 
     afterAll(async () => {

@@ -13,7 +13,7 @@ import { ProjectRepository } from "../../../../../src/features/projects/infra/re
 import { IUser } from "../../../../../src/features/user/domain/model/user";
 import { UserRepository } from "../../../../../src/features/user/infra/repositories/user-repository";
 
-describe("Create Project UseCase tests", () => {
+describe.skip("Create Project UseCase tests", () => {
     const makeSut = () => {
         const userRepo = new UserRepository();
         const projectRepo = new ProjectRepository();

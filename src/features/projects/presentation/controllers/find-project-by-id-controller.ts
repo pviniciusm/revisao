@@ -12,7 +12,7 @@ export class FindProjectByIdController implements Controller {
 
     async execute(req: Request, res: Response) {
         try {
-            const id = req.params.id;
+            const id = req.query.id as string;
 
             if (!id) {
                 return badRequest(res, "ID não informado");
